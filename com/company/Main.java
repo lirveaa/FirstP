@@ -1,5 +1,7 @@
-package com.company;
+package com.company;//package com.company;
 import java.util.Scanner;
+import java.util.TreeMap;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -50,8 +52,15 @@ class CheckNum {
             status = true;
         } else if (!test1 && !test2) {
             status = false;
-        } else {
-            System.out.println("Error!");
+        }
+        else {
+            try {
+                System.out.println("Incorrect input error!");
+                System.exit(0);
+            } catch (Exception e) {
+                System.out.println("Incorrect input error!");
+
+            }
         }
 
         return status;
@@ -77,9 +86,16 @@ class Calc {
                     result = op1 * op2;
                     break;
                 case "/":
+
                     if (op2 == 0) {
-                        System.out.println("Can't divide to Zero!");
-                        return;
+                        try {
+                            result = op1/op2;
+                        }
+                        catch (Exception e){
+                            System.out.println("Can't divide to Zero!");
+                            return;
+                        }
+
                     }
                     result = op1 / op2;
                     break;
@@ -96,7 +112,44 @@ class Calc {
     public void Calc_romans(String op1, String operator, String op2) {
         int num1 = roman_int(op1);
         int num2 = roman_int(op2);
-        Calculate(num1, num2, operator);
+        int result = 0;
+
+
+        if (num1 > 10 || num2 > 10) {
+            System.out.println("Incorrect input!");
+        } else {
+            switch (operator) {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+                case "/":
+
+                    if (num2 == 0) {
+                        try {
+                            result = num1/num2;
+                        }
+                        catch (Exception e){
+                            System.out.println("Can't divide to Zero!");
+                            return;
+                        }
+
+                    }
+
+
+                    result = num1 / num2;
+                    break;
+                default:
+                    System.out.println("Incorrect input!");
+            }
+
+            System.out.println(ToRomanNum.toRoman(result));
+        }
     }
 
     int roman_int(String ch) {
@@ -140,3 +193,43 @@ class Calc {
 
     }
 }
+
+
+
+// Program to convert Roman
+// Numerals to Numbers
+
+
+class ToRomanNum {
+
+    private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+
+    static {
+
+        map.put(1000, "M");
+        map.put(900, "CM");
+        map.put(500, "D");
+        map.put(400, "CD");
+        map.put(100, "C");
+        map.put(90, "XC");
+        map.put(50, "L");
+        map.put(40, "XL");
+        map.put(10, "X");
+        map.put(9, "IX");
+        map.put(5, "V");
+        map.put(4, "IV");
+        map.put(1, "I");
+
+    }
+
+    public final static String toRoman(int number) {
+        int l = map.floorKey(number);
+        if (number == l) {
+            return map.get(number);
+        }
+        return map.get(l) + toRoman(number - l);
+    }
+
+
+    }
+
