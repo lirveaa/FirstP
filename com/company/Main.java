@@ -1,4 +1,4 @@
-package com.company;//package com.company;
+package com.company;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -198,8 +198,6 @@ class Calc {
 
 // Program to convert Roman
 // Numerals to Numbers
-
-
 class ToRomanNum {
 
     private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
@@ -229,7 +227,5 @@ class ToRomanNum {
         }
         return map.get(l) + toRoman(number - l);
     }
-
-
-    }
+}
 
